@@ -1,4 +1,23 @@
 // task_1/main.ts
+interface printTeacherFunction{
+(firstName: string, lastName: string): string;
+}
+
+const printTeacher: printTeacherFunction = (firstName, lastName) => {
+const firstLetter = firstName.charAt(0).toUpperCase();
+const fullName = `${firstLetter}, ${lastName}`;
+return fullName
+}
+
+
+interface Directors extends Teacher{
+numberOfReports: number;
+}
+
+//Example usage:
+const result = printTeacher("John", "Doe");
+console.log(result);
+
 
 class Teacher {
   private _firstName: string;
@@ -63,9 +82,35 @@ class Teacher {
   }
 }
 
-// Example usage:
-const teacher = new Teacher('John', 'Doe');
-teacher.setAdditionalAttribute('contract', true);
+// Interface describing the constructor of StudentClass
+interface StudentClassConstructor {
+  new (firstName: string, lastName: string): StudentClass;
+}
 
-console.log(teacher);
+// Interface describing the methods of StudentClass
+interface StudentClassMethods {
+  workOnHomework(): string;
+  displayName(): string;
+}
 
+// Interface combining both constructor and methods
+interface StudentClass extends StudentClassConstructor, StudentClassMethods {}
+
+// StudentClass implementation
+class StudentClass implements StudentClassMethods {
+  private _firstName: string;
+  private _lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
+
+  workOnHomework(): string {
+    return 'Currently working';
+  }
+
+  displayName(): string {
+    return this._firstName;
+  }
+}
